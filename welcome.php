@@ -1,10 +1,5 @@
 <?php
     session_start();
-    require('config.php');
-    require ("functions.php");
-    if(!checkLoggedInUser()){
-        header("Location:index.php");
-    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,28 +55,14 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          
+          <h1 class="page-header">Dashboard</h1>
+          <h3 class="page-topic">Fellow Students Enrolled</h3>
           <?php
             if(isset($_SESSION['userName'])){
                 echo "<h4>Welcome, ".$_SESSION['userName']."</h4>";
             }
           ?>
-          <h1 class="page-header">Dashboard</h1>
-          <h3 class="page-topic">Fellow Students Enrolled</h3>
-          <div class="row placeholders">
-            <?php 
-                $totalUsersQuery = "SELECT * FROM users";
-                $result = mysqli_query($conn,$totalUsersQuery);
-                while($totalUsers = mysqli_fetch_assoc($result)){
-            ?> 
-                    <!--echo $totalUsers['name']."<br>";-->
-                    <div class="col-xs-6 col-sm-3 placeholder">
-                    <div class="imageCircle"></div>
-                    <h4><?php echo $totalUsers['name'] ?></h4>
-                    <span class="text-muted"><?php echo $totalUsers['email'] ?></span>
-                    </div>
-            <?php }
-            
-            ?>  
         </div>
       </div>
     </div>

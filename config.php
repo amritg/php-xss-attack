@@ -1,11 +1,10 @@
 <?php
 	$serverName = "localhost";
-	$userName  = "amritg";
-	$password = "root";
+	$userName  = "root";
+	$password = "";
 	$dbName = "trusty-bank";
 	$conn = mysqli_connect($serverName, $userName, $password, $dbName);
-
-	$message = '';
+	
 	if(!$conn){
 		die("Connection failed");
 	}
