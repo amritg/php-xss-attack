@@ -6,8 +6,39 @@
             return false;
         }
     }
-    function incrementByFive($num){
-        $newNum = $num + 5;
-        return $newNum;
-    } 
+
+    function transferMoney($conn, $money, $receiver){
+
+        $accountSearchQuery = "SELECT * FROM accountinformation WHERE accountNumber = '$receiver'";
+        $searchResult =  mysqli_query($conn, $accountSearchQuery);
+        $searchRow = mysqli_fetch_array($searchResult, MYSQLI_ASSOC);
+        
+        if($searchRow){
+            $newBalance = $searchRow['balance'] + $money;
+            $transferQuery = "UPDATE accountinformation SET balance = $newBalance WHERE accountNumber = '$receiver'";
+            $transferResult = mysqli_query($conn, $transferQuery);
+            $affectedRow = mysqli_affected_rows($conn);
+            if($affectedRow > 0){
+                $_SESSION['transactionMessage'] = "Successfull transfer of money to: ".$receiver." <br> Amount: ".$money;
+
+                //After successful transfer of money, Now deduct the amount from Sender/User account
+                $newUserBalance = $_SESSION['userBalance'] - $money;
+                $userAccount = $_SESSION['userAccount'];
+                $deductBalanceQuery = "UPDATE accountinformation SET balance = $newUserBalance WHERE accountNumber = '$userAccount'";
+                mysqli_query($conn,$deductBalanceQuery);
+                
+                $_SESSION['userBalance'] = $newUserBalance;
+                
+
+            }else{
+                echo "Internal Server error ! Please try again.";
+            }
+            
+        }else{
+             $_SESSION['transactionMessage'] = "Cannot find any account associated with Account Number: ". $receiver;
+             header("location:welcome.php");
+        }
+        
+        
+    }
 ?>

@@ -56,13 +56,41 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           
-          <h1 class="page-header">Dashboard</h1>
-          <h3 class="page-topic">Fellow Students Enrolled</h3>
-          <?php
-            if(isset($_SESSION['userName'])){
-                echo "<h4>Welcome, ".$_SESSION['userName']."</h4>";
+        <h1 class="page-header">Dashboard</h1>
+        <?php
+            echo "<h3>Welcome, ".$_SESSION['userName']."</h3>";
+            echo "<h4>Your net balance is: ".$_SESSION['userBalance']."</h4>";
+            
+        ?>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
+            <h3>Transfer money quickly!</h3>
+            <form class="form-horizontal" action="transfer.php" method="get">
+                <div class="form-group">
+                    <label for="toAccount" class="col-sm-1 col-md-1">To Account</label>
+                    <div class="col-sm-3 col-md-3">
+                        <input type="text" class="form-control" name="toAccount" id="toAccount">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="amount" class="col-sm-1 col-md-1">Amount</label>
+                    <div class="col-sm-3 col-md-3">
+                        <input type="number" class="form-control" name="amount" id="amount">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-1 col-md-1">
+                        <input type="submit" class="form-control" name="submit" id="submit">
+                    </div>
+                </div>
+            </form>
+            <?php
+            
+            if(!empty($_SESSION['transactionMessage'])){
+                echo $_SESSION['transactionMessage'];
+                
             }
-          ?>
+             ?>
         </div>
       </div>
     </div>
