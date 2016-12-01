@@ -1,11 +1,4 @@
 <?php
-    function checkLoggedInUser() { 
-        if(isset($_SESSION['userName'])){
-            return true;
-        }else{
-            return false;
-        }
-    }
 
     function transferMoney($conn, $money, $receiver){
 
@@ -29,9 +22,8 @@
                 
                 $_SESSION['userBalance'] = $newUserBalance;
                 
-
             }else{
-                echo "Internal Server error ! Please try again.";
+                $_SESSION['transactionMessage'] = "Internal Server error ! Please try again.";
             }
             
         }else{

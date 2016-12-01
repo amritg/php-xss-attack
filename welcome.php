@@ -64,33 +64,33 @@
         ?>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-            <h3>Transfer money quickly!</h3>
-            <form class="form-horizontal" action="transfer.php" method="get">
+            
+            <form class="form-horizontal col-sm-3 col-md-3" action="transfer.php" method="get">
+                <h4>Transfer money quickly!</h4>
+                <?php
+                    if(!empty($_SESSION['transactionMessage'])){
+                        echo $_SESSION['transactionMessage'];
+                    }
+                ?>
                 <div class="form-group">
-                    <label for="toAccount" class="col-sm-1 col-md-1">To Account</label>
-                    <div class="col-sm-3 col-md-3">
+                    <label for="toAccount" class="col-sm-4 col-md-4">To Account</label>
+                    <div class="col-sm-8 col-md-8">
                         <input type="text" class="form-control" name="toAccount" id="toAccount">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="amount" class="col-sm-1 col-md-1">Amount</label>
-                    <div class="col-sm-3 col-md-3">
+                    <label for="amount" class="col-sm-4 col-md-4">Amount</label>
+                    <div class="col-sm-8 col-md-8">
                         <input type="number" class="form-control" name="amount" id="amount">
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-1 col-md-1">
+                    <div class="col-sm-4 col-md-4">
                         <input type="submit" class="form-control" name="submit" id="submit">
                     </div>
                 </div>
             </form>
-            <?php
             
-            if(!empty($_SESSION['transactionMessage'])){
-                echo $_SESSION['transactionMessage'];
-                
-            }
-             ?>
         </div>
       </div>
     </div>
