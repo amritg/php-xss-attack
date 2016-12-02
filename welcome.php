@@ -39,16 +39,6 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Members <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item 1</a></li>
-            <li><a href="">Nav item 2</a></li>
-            <li><a href="">Nav item 3</a></li>
-            <li><a href="">Nav item 4</a></li>
-            <li><a href="">Nav item 5</a></li>
           </ul>
           <ul class="nav nav-sidebar logout">
             <li><a href="logout-script.php">Logout</a></li>
@@ -90,10 +80,60 @@
                     </div>
                 </div>
             </form>
-            
+             <!-- Message Board Section -->
+             <div class="col-sm-3 col-md-3">
+                <form id="messageForm" class="form-inline">
+                    <h4>Message Board</h4>
+                    
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="newMessage" id="newMessage">
+                    </div>
+                    <button type="submit" name="submitMessage" id="submitMessage" class="btn btn-success">Post</button>
+                    <div id="message"></div>
+                </form>
+                <div id="allPosts" style="margin-top:30px">
+                </div>
+            </div>
         </div>
       </div>
     </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#submitMessage").click(function(event){
+            event.preventDefault();
+    
+            $.ajax({
+                url: 'postMessage.php',
+                method: 'get',
+                data: $("#messageForm").serialize(),
+                dataType: "text"})
+                .done(function(message){
+                    $("#newMessage").val("");
+                    console.log(message);
+                    $("#message").text(message)
+                    $("#message").delay(3000).hide(300);
+                    loadPosts();
+                })
+                .fail(function(err){
+                    console.log(err);
+                });
+        });
+
+        function loadPosts(){
+            $.ajax({
+                url: 'loadPosts.php',
+                dataType: 'html'})
+                .done(function(Result){
+                    $("#allPosts").html(Result);
+                })
+                .fail(function(err){
+                    console.log(err);
+                });
+        }
+
+        loadPosts();
+    });
+</script>
 </body>
 </html>
