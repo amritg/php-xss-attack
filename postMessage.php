@@ -9,9 +9,9 @@
         $success = mysqli_query($conn,"INSERT INTO posts(message_body,posted_by) VALUES ('$newMessage','$user')");
 
         if($success){
-                echo "New post is posted successfully!";
+            echo json_encode(array('successMessage' => "New post is posted successfully!"));
         }else{
-                echo mysqli_error();
+            echo json_encode(array('errorMessage' => mysqli_error()));
         }
     }else{
         header("location:index.php");

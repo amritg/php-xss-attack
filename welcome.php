@@ -49,19 +49,21 @@
         <h1 class="page-header">Dashboard</h1>
         <?php
             echo "<h3>Welcome, ".$_SESSION['userName']."</h3>";
-            echo "<h4>Your net balance is: ".$_SESSION['userBalance']."</h4>";
+            echo "<h4 id='displayBalance'>Your net balance is: ".$_SESSION['userBalance']."</h4>";
             
         ?>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
-            
-            <form class="form-horizontal col-sm-3 col-md-3" action="transfer.php" method="get">
+            <!-- Transfer Money Form -->
+            <form class="form-horizontal col-sm-3 col-md-3" id="transferForm">
                 <h4>Transfer money quickly!</h4>
-                <?php
+                <!--<?php
                     if(!empty($_SESSION['transactionMessage'])){
                         echo $_SESSION['transactionMessage'];
                     }
-                ?>
+                ?>-->
+                <div id="transferLogMessage">
+                </div>
                 <div class="form-group">
                     <label for="toAccount" class="col-sm-4 col-md-4">To Account</label>
                     <div class="col-sm-8 col-md-8">
@@ -76,7 +78,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-4 col-md-4">
-                        <input type="submit" class="form-control" name="submit" id="submit">
+                        <input type="submit" class="form-control" name="submit" id="transferMoneyButton">
                     </div>
                 </div>
             </form>
@@ -102,18 +104,22 @@
     $(document).ready(function(){
         $("#submitMessage").click(function(event){
             event.preventDefault();
-    
             $.ajax({
                 url: 'postMessage.php',
                 method: 'get',
                 data: $("#messageForm").serialize(),
-                dataType: "text"})
-                .done(function(message){
-                    $("#newMessage").val("");
-                    console.log(message);
-                    $("#message").text(message)
-                    $("#message").delay(3000).hide(300);
-                    loadPosts();
+                dataType: "json"})
+                .done(function(data){
+                    console.log(data);
+                    $("#message").show();
+                    $("#message").html(data.successMessage);
+                    $("#messageForm")[0].reset();
+                    setTimeout(function(){
+                        $("#message").hide(2200);
+                        loadPosts();
+                    },500);
+                    
+                    
                 })
                 .fail(function(err){
                     console.log(err);
@@ -133,6 +139,32 @@
         }
 
         loadPosts();
+
+        $("#transferMoneyButton").click(function(event){
+            event.preventDefault();
+            console.log('transferMoneyButton just Clicked');
+            $.ajax({
+                url: 'transfer.php',
+                method: 'get',
+                data: $("#transferForm").serialize(),
+                dataType: "json"
+            }).success(function(data, textStatus){
+                console.log(data);
+                console.log(textStatus);
+                $("#transferLogMessage").show();
+                $("#transferLogMessage").html("<p>SUCCESSFUL TRANSFER OF AMOUNT:" + data.transferAmount + "TO: " + data.receiverUserName);
+                setTimeout(function(){
+                    $("#transferLogMessage").hide(300);
+                    $("#transferForm")[0].reset();
+                    setTimeout(function(){
+                        $("#displayBalance").html("<h4>Your net balance is: " + data.newUserBalance +"</h4>");
+                    },500);
+                },1000);
+            }).error(function(error){
+                console.log(error);
+            });
+
+        });
     });
 </script>
 </body>
