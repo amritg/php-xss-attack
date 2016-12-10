@@ -1,5 +1,4 @@
 <?php
-
     function transferMoney($conn, $money, $receiver){
 
         $accountSearchQuery = "SELECT * FROM accountinformation WHERE accountNumber = '$receiver'";
@@ -19,7 +18,6 @@
                 
                 $_SESSION['userBalance'] = $newUserBalance;
                 echo json_encode(array('newUserBalance' => $newUserBalance,'receiverUserName'=> $receiver, 'transferAmount'=> $money));
-                
             }else{
                 $_SESSION['transactionMessage'] = "Internal Server error ! Please try again.";
             }
@@ -28,7 +26,5 @@
              $_SESSION['transactionMessage'] = "Cannot find any account associated with Account Number: ". $receiver;
              header("location:welcome.php");
         }
-        
-        
     }
 ?>

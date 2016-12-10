@@ -18,10 +18,12 @@
             $logLastName = $row["accountHolderLastName"];
             $logAccount = $row["accountNumber"];
             $logBalance = $row["balance"];
+            $logUserId = $row["id"];
             if($row){
                 $_SESSION['userName'] = $logFirstName;
                 $_SESSION['userAccount'] = $logAccount;
                 $_SESSION['userBalance'] = $logBalance;
+                $_SESSION['userId'] = $logUserId;
                 header("Location:welcome.php");
             }else{
                 $message = "LOG IN ERROR<br>Account Number or Password mismatch Type Account and Password correctly.";
