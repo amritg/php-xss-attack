@@ -1,0 +1,39 @@
+  /* Welcome Page styling */
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
+.body{
+    color: #666;
+    background-color: #f1f2f2;
+    font: 16px/26px "Raleway", sans-serif;
+    height: 100vh;
+  }
+  .moneyTransferForm {
+    background-color: #D5DBDB;
+    padding: 10px;
+  }
+  #moneyTransferFormHeading{
+      text-align: center;
+      text-decoration: underline;
+  }
+  .accountInformation{
+      background-color: #34495E;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      min-height: 206px;
+      text-align: center;
+  }
+  .row{
+      margin: 0px;
+  }
+  .messageBoard{
+      color: white;
+      margin-top: 20px;
+      background-color: #566573;
+  }
+  #messageForm{
+      text-align: center;
+  }
+  #allPosts{
+      background-color: #CCD1D1;
+      color: black;
+  }
