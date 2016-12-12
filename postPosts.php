@@ -13,7 +13,7 @@
             echo mysqli_error();
         }
     }else{
-        header("location:index.php");
+        echo json_encode(array('emptyMessage' => "Please fill in the form field!!"));
     }
 
 ?>

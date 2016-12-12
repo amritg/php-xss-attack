@@ -33,6 +33,11 @@
   #messageForm{
       text-align: center;
   }
+  #message, #transferLogMessage{
+      text-align: center;
+      margin: 20px auto 10px auto;
+      color: white;
+  }
   #allPosts{
       background-color: #CCD1D1;
       color: black;

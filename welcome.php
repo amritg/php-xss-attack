@@ -37,31 +37,33 @@
                     <div class="col-sm-7 col-md-7 moneyTransferForm">               
                         <form class="form-horizontal" id="transferForm">
                             <h4 id="moneyTransferFormHeading">TRANSFER MONEY</h4>
+                            <!-- Log Server message-->
                             <div id="transferLogMessage">
                             </div>
                             <div class="form-group">
                                 <label for="toAccount" class="col-sm-4 col-md-4">To Account</label>
                                 <div class="col-sm-8 col-md-8">
-                                    <input type="text" class="form-control" name="toAccount" id="toAccount">
+                                    <input type="text" class="form-control" name="toAccount" id="toAccount" placeholder="User Name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="amount" class="col-sm-4 col-md-4">Amount</label>
                                 <div class="col-sm-8 col-md-8">
-                                    <input type="number" class="form-control" name="amount" id="amount">
+                                    <input type="number" class="form-control" name="amount" id="amount" placeholder="Amount In Euro's">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-4 col-md-4 col-md-push-8">
+                                <div class="col-sm-3 col-md-3 col-md-push-9">
                                     <input type="submit" class="btn btn-primary form-control" name="submit" id="transferMoneyButton">
                                 </div>
                             </div>
                         </form>
                     </div>
+                    <!-- Account Information -->
                     <div class="col-sm-4 col-md-4 col-md-push-1 accountInformation">
                         <h4>User Profile</h4><hr/>
-                        <p>NAME: <?php echo $_SESSION['userName']; ?></p>
-                        <p id="displayBalance">NET BALANCE: <?php echo $_SESSION['userBalance']; ?></p>
+                        <p>Account Holder's Name : <?php echo $_SESSION['userFirstName']." ".$_SESSION['userLastName']; ?></p>
+                        <p id="displayBalance">NET BALANCE : € <?php echo $_SESSION['userBalance']; ?></p>
                     </div>         
                 </div>
                 <div class="row">
@@ -70,9 +72,10 @@
                         <form id="messageForm" class="form-inline">
                             <h4>Suggestions Forum</h4>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="newMessage" id="newMessage">
+                                <input type="text" class="form-control" name="newMessage" id="newMessage" placeholder="Any Suggestions">
                             </div>
                             <button type="submit" name="submitMessage" id="submitMessage" class="btn btn-success">Post</button>
+                            <!-- Log Server message-->
                             <div id="message"></div>
                         </form>
                         <div id="allPosts" style="margin-top:30px">

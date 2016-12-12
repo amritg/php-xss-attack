@@ -23,8 +23,7 @@
             }
             
         }else{
-             $_SESSION['transactionMessage'] = "Cannot find any account associated with Account Number: ". $receiver;
-             header("location:welcome.php");
+            echo json_encode(array('emptyMessage' => "Cannot find any account associated with Account Number: $receiver;"));
         }
     }
 ?>

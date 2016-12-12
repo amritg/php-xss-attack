@@ -1,40 +1,29 @@
-jQuery(document).ready(function ($) {
-	tab = $('.tabs h3 a');
-
-	tab.on('click', function (event) {
-		event.preventDefault();
-		tab.removeClass('active');
-		$(this).addClass('active');
-
-		tab_content = $(this).attr('href');
-		$('div[id$="tab-content"]').removeClass('active');
-		$(tab_content).addClass('active');
-	});
-
+$(document).ready(function () {
 	$("#submitMessage").click(function (event) {
 		event.preventDefault();
 		$.ajax({
-			url: 'postMessage.php',
+			url: 'postPosts.php',
 			method: 'get',
 			data: $("#messageForm").serialize(),
 			dataType: "json"
 		})
 			.done(function (data) {
 				console.log(data);
-				$("#message").show();
+				$("#message").show();;
+				$("#message").css({"height":"26px","font-size":"18px","background-color": "#EC7063","width":"500px"});
 				$("#message").html(data.successMessage);
+				$("#message").html(data.emptyMessage);
 				$("#messageForm")[0].reset();
 				setTimeout(function () {
-					$("#message").hide(2200);
+					$("#message").hide();
 					loadPosts();
-				}, 500);
-
-
+				}, 1000);
 			})
 			.fail(function (err) {
 				console.log(err);
 			});
-	});
+		}
+	);
 
 	function loadPosts() {
 		$.ajax({
@@ -63,14 +52,18 @@ jQuery(document).ready(function ($) {
 			console.log(data);
 			console.log(textStatus);
 			$("#transferLogMessage").show();
-			$("#transferLogMessage").html("<p>SUCCESSFUL TRANSFER OF AMOUNT:" + data.transferAmount + "TO: " + data.receiverUserName);
+			$("#transferLogMessage").css({"height":"26px","font-size":"18px","background-color": "#EC7063","width":"500px"});
+			$("#transferLogMessage").html("<p>SUCCESSFUL TRANSFER OF AMOUNT: <b>" + data.transferAmount + "</b> TO: <b>" + data.receiverUserName + "</b>");
+			$("#transferLogMessage").html(data.emptyMessage);
 			setTimeout(function () {
-				$("#transferLogMessage").hide(300);
+				$("#transferLogMessage").hide();
 				$("#transferForm")[0].reset();
-				setTimeout(function () {
+				if(!data.emptyMessage){
+					setTimeout(function () {
 					$("#displayBalance").html("<h4>Your net balance is: " + data.newUserBalance + "</h4>");
-				}, 500);
-			}, 1000);
+					}, 500);
+				}
+			}, 2000);
 		}).error(function (error) {
 			console.log(error);
 		});

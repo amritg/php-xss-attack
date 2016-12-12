@@ -20,7 +20,8 @@
             $logBalance = $row["balance"];
             $logUserId = $row["id"];
             if($row){
-                $_SESSION['userName'] = $logFirstName;
+                $_SESSION['userFirstName'] = $logFirstName;
+                $_SESSION['userLastName'] = $logLastName;
                 $_SESSION['userAccount'] = $logAccount;
                 $_SESSION['userBalance'] = $logBalance;
                 $_SESSION['userId'] = $logUserId;
