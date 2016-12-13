@@ -24,7 +24,7 @@
     <div class="form-wrap">
 		<div class="tabs">
 			<h3 class="signup-tab"><a href="#signup-tab-content">Sign Up</a></h3>
-			<h3 class="login-tab"><a class="active" href="#login-tab-content">Login</a></h3>
+			<h3 class="login-tab"><a class="active" href="#login-tab-content">Log In</a></h3>
 		</div><!--.tab-->
 		<div class="tabs-content">
 			<h2 style="text-align:center;padding-bottom:15px">Trusty Bank <i class="fa fa-money" aria-hidden="true"></i></h2>
