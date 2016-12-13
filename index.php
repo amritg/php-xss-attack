@@ -1,5 +1,14 @@
 <?php 
 	session_start();
+	if (isset($_SESSION["userName"])) {
+    	unset($_SESSION["userName"]);
+    	unset($_SESSION["message"]);
+		setcookie("PHPSESSID","",time()-1000,"/");
+	}
+	// else {
+    // 	echo "don't see one";
+	// }
+	// var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +23,8 @@
 <body>
     <div class="form-wrap">
 		<div class="tabs">
-			<h3 class="login-tab">Login Form</h3>
+			<h3 class="signup-tab"><a href="#signup-tab-content">Sign Up</a></h3>
+			<h3 class="login-tab"><a class="active" href="#login-tab-content">Login</a></h3>
 		</div><!--.tab-->
 		<div class="tabs-content">
 			<h2 style="text-align:center;padding-bottom:15px">Trusty Bank <i class="fa fa-money" aria-hidden="true"></i></h2>
@@ -25,6 +35,19 @@
 				}
 			?>
 			</div>
+			<div id="signup-tab-content">
+				<form class="signup-form" action="sign-up-script.php" method="post">
+					<input type="text" class="input" id="user_first_name" autocomplete="off" placeholder="First name" name="userFirstName" required>
+					<input type="text" class="input" id="user_last_name" autocomplete="off" placeholder="Last name" name="userLastName" required>
+					<input type="number" class="input" id="user_account_number" autocomplete="off" placeholder="Account Number" name="accountNumber" required>
+					<input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Password" name="password" required>
+					<input type="submit" class="button" name = "register" value="Sign Up">
+				</form>
+				<div class="help-text">
+					<p>By signing up, you agree to the</p>
+					<p style="text-decoration:underline;"><a href="http://pdf.textfiles.com/security/palmer.pdf" target="_blank">Terms of service Ethical Hacking</a></p>
+				</div><!--.help-text-->
+			</div><!--.signup-tab-content-->
 			<div id="login-tab-content" class="active">
 				<form class="login-form" action="login-script.php" method="post">
 					<input type="text" class="input" id="user_login" autocomplete="off" placeholder="Account Number" name="accountNumber">
